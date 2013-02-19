@@ -61,7 +61,7 @@ end
 
 function UpdateCharacterCount()
 	WoofCharacterCount:Show();
-	WoofCharacterCount:SetFormattedText(MACROFRAME_CHAR_LIMIT, GetWoofMessageText():len())
+	WoofCharacterCount:SetText((255 - GetWoofMessageText():len()).." characters left.")
 end
 
 -- Button Functions
