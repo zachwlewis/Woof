@@ -1,0 +1,6 @@
+## Interface: 50100
+## Title: Woof
+## Notes: Simple, one-click trade barking.
+## SavedVariables: Woof_Settings
+
+Woof.xml
