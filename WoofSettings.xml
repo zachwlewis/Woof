@@ -1,0 +1,27 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ .. \FrameXML\UI.xsd">
+	<Script file="WoofSettings.lua"/>
+	<Frame name="WoofSettingsFrame">
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture file="Interface\AddOns\Woof\Art\WoofSettings" name="WoofSettingsImage">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Texture>
+				<FontString inherits="GameFontWhite" text="Woof (5.1.0.0)">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="WoofSettingsImage" relativePoint="BOTTOM">
+							<Offset x="0" y="-5"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+				<OnLoad function="WoofSettingsFrame_OnLoad"/>
+		</Scripts>
+	</Frame>
+</Ui>

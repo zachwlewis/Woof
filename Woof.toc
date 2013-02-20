@@ -1,7 +1,9 @@
 ## Interface: 50100
 ## Title: Woof
 ## Notes: Simple, one-click trade barking.
-## SavedVariables: Woof_Settings
+## Version: 5.1.0.0
+## SavedVariables: Woof_Settings, Woof_SavedItems
 
 localization.en.lua
 Woof.xml
+WoofSettings.xml
