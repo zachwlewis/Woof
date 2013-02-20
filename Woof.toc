@@ -3,4 +3,5 @@
 ## Notes: Simple, one-click trade barking.
 ## SavedVariables: Woof_Settings
 
+localization.en.lua
 Woof.xml

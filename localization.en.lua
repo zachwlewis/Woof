@@ -1,0 +1,1 @@
+WOOF_DIALOG_TITLE = "Woof"

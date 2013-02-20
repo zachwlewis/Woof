@@ -70,9 +70,11 @@ function WoofFrameTestButton_OnClick()
 end
 
 function WoofFrameBarkButton_OnClick()
-local message = GetWoofMessageText()
-local index = GetChannelName("Trade - City") -- It finds General is a channel at index 1
-	if index ~= nil then 
+	local message = GetWoofMessageText()
+	local index = GetChannelName("Trade - City")
+
+	-- Check for valid channel.
+	if index ~= nil and index > 0 then 
 	  SendChatMessage(message , "CHANNEL", nil, index); 
 	  PlaySoundFile("Sound/Creature/PugDog/PugDog_Clickable_02.ogg")
 	else

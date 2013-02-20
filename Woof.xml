@@ -149,7 +149,7 @@
 		</HitRectInsets>
 		<Layers>
 			<Layer level="BACKGROUND">
-				<Texture file="Interface\ICONS\Ability_Druid_Berserk" name="WoofIcon">
+				<Texture file="Interface\AddOns\Woof\Art\WoofIcon" name="WoofIcon">
 					<Size>
 						<AbsDimension x="60" y="60"/>
 					</Size>
@@ -207,14 +207,14 @@
 					</Anchors>
 					<TexCoords left="0.46875" right="1.0" top="0.65625" bottom="1.0"/>
 				</Texture>
-				<FontString inherits="GameFontWhite" text="Woof">
+				<FontString inherits="GameFontWhite" text="WOOF_DIALOG_TITLE">
 					<Anchors>
 						<Anchor point="TOP">
 							<Offset x="0" y="-17"/>
 						</Anchor>
 					</Anchors>
 				</FontString>
-				<FontString name="WoofCharacterCount" inherits="GameFontNormalSmall" text="255" hidden="true">
+				<FontString name="WoofCharacterCount" inherits="GameFontNormalSmall" hidden="true">
 					<Anchors>
 						<Anchor point="TOPLEFT">
 							<Offset x="80" y="-47"/>
