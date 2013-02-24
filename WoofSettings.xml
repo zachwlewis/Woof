@@ -11,7 +11,7 @@
 						<Anchor point="CENTER"/>
 					</Anchors>
 				</Texture>
-				<FontString inherits="GameFontWhite" text="Woof (5.1.0.0)">
+				<FontString inherits="GameFontWhite" text="WOOF_VERSION">
 					<Anchors>
 						<Anchor point="TOP" relativeTo="WoofSettingsImage" relativePoint="BOTTOM">
 							<Offset x="0" y="-5"/>
