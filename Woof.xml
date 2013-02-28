@@ -370,18 +370,11 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			
 		</Frames>
 		<Scripts>
 			<OnEvent function="WoofFrame_OnEvent"/>
-			<OnShow>
-				WoofFrame_OnShow(self);
-				PlaySound("igCharacterInfoOpen");
-			</OnShow>
-			<OnHide>
-				WoofFrame_OnHide();
-				PlaySound("igCharacterInfoClose");
-			</OnHide>
+			<OnShow function="WoofFrame_OnShow"/>
+			<OnHide function="WoofFrame_OnHide"/>
 			<OnLoad function="WoofFrame_OnLoad"/>
 			<OnMouseUp function="WoofFrame_OnMouseUp"/>
 		</Scripts>

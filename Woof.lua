@@ -12,8 +12,6 @@ function SlashCmdList.WOOF(msg, editbox)
 		WoofFrame:Show()
 	elseif msg == "hide" then
 		WoofFrame:Hide()
-	elseif msg == "data" then
-		DumpData(Woof_SavedItems)
 	elseif GetItemInfo(msg) ~= nil then
 		SetCurrentItem(msg)
 		WoofFrame:Show()
@@ -66,37 +64,8 @@ function LoadBark(item)
 	return true
 end
 
-function DumpData(dumpTable)
-	for k,v in pairs(dumpTable) do
-		print(k,v)
-		if type(v) == "table" then  -- DumpData(dumpTable) end
-			for k1,v1 in pairs(v) do
-				print(k1,v1)
-			end
-		end
-	end
-end
-
 -- Frame functionality
-function WoofFrame_OnLoad(self)
-end
 
-function WoofFrame_OnShow(self)
-end
-
-function WoofFrame_OnHide()
-	ClearCurrentItem()
-	heldItem = nil
-	WoofFrame_UpdateItem()
-end
-
-function WoofFrame_OnEvent(self, event, ...)
-end
-
--- Updates the frame with new information.
-function WoofFrame_Update()
-	WoofFrame_UpdateItem();
-end
 
 -- Deal with text input.
 function GetWoofMessageText()
@@ -110,7 +79,7 @@ function GetWoofMessageText()
 		itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, itemSellPrice = GetItemInfo(currentItem)
 	end
 
-	message = "WTS "..itemLink.." "..price.."G "..WoofFrameText:GetText()
+	message = "{skull} WTS "..itemLink.." "..price.."G {skull} "..WoofFrameText:GetText()
 	
 	if message == nil then message = "" end
 
@@ -126,26 +95,71 @@ function SetCurrentItem(item)
 
 	-- Load the values for that item.
 	LoadBark(currentItem)
-
-	WoofFrame_UpdateItem()
 end
 
 function ClearCurrentItem()
 	SaveBark(currentItem)
 	currentItem = nil
-end
-
-function WoofFrameText_OnTextChanged(self)
-	ScrollingEdit_OnTextChanged(self, self:GetParent());
-	WoofFrame_UpdateItem()
+	WoofFrame_Update()
 end
 
 function UpdateCharacterCount()
-	WoofCharacterCount:Show();
-	WoofCharacterCount:SetText((255 - GetWoofMessageText():len()).." characters left.")
+	if currentItem ~= nil then
+		WoofCharacterCount:Show()
+		WoofCharacterCount:SetText((255 - GetWoofMessageText():len()).." characters left.")
+	else
+		WoofCharacterCount:Hide()
+	end
 end
 
--- Button Functions
+------------------------
+-- Frame Events
+------------------------
+
+function WoofFrame_OnEvent(self, event, ...)
+	-- Not currently dealing with every event.
+end
+
+-- Register Woof as a special frame to be closed with <Escape>.
+function WoofFrame_OnLoad(self)
+	tinsert(UISpecialFrames, self:GetName())
+	WoofPrint("has loaded successfully.")
+end
+
+-- Play a dialog open sound.
+function WoofFrame_OnShow(self)
+	PlaySound("igCharacterInfoOpen")
+end
+
+-- Reset the dialog and play a dialog close sound.
+function WoofFrame_OnHide()
+	ClearCurrentItem()
+	heldItem = nil
+	PlaySound("igCharacterInfoClose")
+end
+
+-- Updates the dialog with new information.
+function WoofFrame_Update()
+	WoofFrame_UpdateItem()
+	if currentItem == nil or WoofFrameText:GetText() == "" or MoneyInputFrame_GetCopper(WoofItemValueFrame) == nil or MoneyInputFrame_GetCopper(WoofItemValueFrame) == 0 then
+		WoofFrameTestButton:Disable()
+		WoofFrameBarkButton:Disable()
+	else
+		WoofFrameTestButton:Enable()
+		WoofFrameBarkButton:Enable()
+	end
+end
+
+-- Request an update when text changes.
+function WoofFrameText_OnTextChanged(self)
+	ScrollingEdit_OnTextChanged(self, self:GetParent());
+	WoofFrame_Update()
+end
+
+------------------------
+-- Button Events
+------------------------
+
 function WoofFrameTestButton_OnClick()
 	WoofPrint(GetWoofMessageText())
 end
@@ -175,7 +189,7 @@ end
 -- Helper functionality.
 function WoofPrint(msg)
 	if msg == nil then msg = "nil" end
-	print("|cFF33FF33 Woof|r "..msg)
+	print("|cFF4BA0FFWoof|r "..msg)
 end
 
 function LearnCurrentHeldItem()
@@ -211,27 +225,25 @@ function WoofFrame_UpdateItem()
 	local woofItemCount = _G["WoofItemItemButtonCount"]
 
 	if currentItem == nil or currentItem == "" then
+		currentItem = nil
 		buttonText:SetText("No item to bark.")
 		SetItemButtonTexture(woofItemButton, nil)
-		return
-	end
-
-	local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, itemSellPrice = GetItemInfo(currentItem)
-
-	buttonText:SetText(itemName)
-	SetItemButtonTexture(woofItemButton, itemTexture)
-	woofItemCount.hidden = true
-	if ( texture ) then
-		WoofItem.hasItem = 1;
 	else
-		WoofItem.hasItem = nil;
+
+		local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, itemSellPrice = GetItemInfo(currentItem)
+
+		buttonText:SetText(itemName)
+		SetItemButtonTexture(woofItemButton, itemTexture)
+		woofItemCount.hidden = true
+
+		if ( texture ) then
+			WoofItem.hasItem = 1
+		else
+			WoofItem.hasItem = nil
+		end
+
 	end
 
 	UpdateCharacterCount()
-end
 
--- On load
-do
-	WoofPrint("has loaded successfully.")
 end
-
