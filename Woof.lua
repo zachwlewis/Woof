@@ -66,6 +66,9 @@ end
 
 -- Frame functionality
 
+function UpdateWoofVersionString()
+	WOOF_VERSION = WOOF_NAME.." ("..GetAddOnMetadata("Woof","Version")..")"
+end
 
 -- Deal with text input.
 function GetWoofMessageText()
@@ -122,6 +125,7 @@ end
 
 -- Register Woof as a special frame to be closed with <Escape>.
 function WoofFrame_OnLoad(self)
+	UpdateWoofVersionString()
 	tinsert(UISpecialFrames, self:GetName())
 	WoofPrint("has loaded successfully.")
 end
