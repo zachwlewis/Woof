@@ -1,3 +1,7 @@
+-- Get localization.
+local ADDON_NAME, namespace = ...
+local L = namespace.L
+
 -- Saved variables
 Woof_Settings = {}
 Woof_SavedItems = {}
@@ -82,7 +86,7 @@ function GetWoofMessageText()
 		itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, itemSellPrice = GetItemInfo(currentItem)
 	end
 
-	message = "{skull} WTS "..itemLink.." "..price.."G {skull} "..WoofFrameText:GetText()
+	message = L["{skull} WTS "]..itemLink.." "..price..L["G {skull} "]..WoofFrameText:GetText()
 	
 	if message == nil then message = "" end
 
@@ -109,7 +113,7 @@ end
 function UpdateCharacterCount()
 	if currentItem ~= nil then
 		WoofCharacterCount:Show()
-		WoofCharacterCount:SetText((255 - GetWoofMessageText():len()).." characters left.")
+		WoofCharacterCount:SetText((255 - GetWoofMessageText():len())..L[" characters left."])
 	else
 		WoofCharacterCount:Hide()
 	end
@@ -170,11 +174,11 @@ end
 
 function WoofFrameBarkButton_OnClick()
 	local message = GetWoofMessageText()
-	local index = GetChannelName("Trade - City")
+	local index = GetChannelName(L["Trade - City"])
 
 	-- Check for valid item.
 	if currentItem == nil then
-		WoofPrint("You have not selected an item to bark.")
+		WoofPrint(L["You have not selected an item to bark."])
 		return
 	end
 
@@ -183,7 +187,7 @@ function WoofFrameBarkButton_OnClick()
 	  SendChatMessage(message , "CHANNEL", nil, index); 
 	  PlaySoundFile("Sound/Creature/PugDog/PugDog_Clickable_02.ogg")
 	else
-		WoofPrint("You are not currently in any trade channels.")
+		WoofPrint(L["You are not currently in any trade channels."])
 	end
 
 	-- Save the item and information for later.
@@ -230,7 +234,7 @@ function WoofFrame_UpdateItem()
 
 	if currentItem == nil or currentItem == "" then
 		currentItem = nil
-		buttonText:SetText("No item to bark.")
+		buttonText:SetText(L["No item to bark."])
 		SetItemButtonTexture(woofItemButton, nil)
 	else
 

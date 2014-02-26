@@ -1,6 +1,9 @@
+local ADDON_NAME, namespace = ...
+local L = namespace.L
+
 function WoofSettingsFrame_OnLoad(self)
 	-- Set the name for the Category for the Panel
-	self.name = "Woof"
+	self.name = L["Woof"]
 
 	-- When the player clicks okay, run this function.
 	self.okay = function (self) end

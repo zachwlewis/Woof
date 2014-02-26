@@ -1,6 +1,0 @@
-WOOF_DIALOG_TITLE = "Woof"
-WOOF_NO_ITEM = "No item to bark."
-WOOF_BUTTON_TEST = "Test"
-WOOF_BUTTON_BARK = "Bark"
-WOOF_VERSION = ""
-WOOF_NAME = "Woof"
